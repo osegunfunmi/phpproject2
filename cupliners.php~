@@ -1,0 +1,123 @@
+<?php
+include("db.php");
+$err = "";
+$notable ="";
+if(!isset($_GET['pid']))
+{
+ header("location:index.php");
+}
+
+$pid = $_GET['pid'];
+$cid = $_GET['cid'];
+$sqlpid = mysql_query("SELECT * FROM networking WHERE id ='$pid'") or die(mysql_error());
+$rz = mysql_fetch_array($sqlpid);
+
+?>
+
+<?php
+include("head.php");
+?>
+<div class="wrapper">
+
+ <?php
+include("nav.php");
+include("sidebar.php");
+?>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+   
+
+    <!-- Main content -->
+    <section class="content">
+<?php
+$sqlpid = mysql_query("SELECT * FROM networking WHERE id ='$cid'") or die(mysql_error());
+$rx = mysql_fetch_array($sqlpid);
+?>
+<div class="row">
+        <div class="col-md-12">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user-2">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-yellow">
+              <h3 class="widget-user-username"><?php echo strtoupper($rx['firstname'].' '.$rx['lastname']); ?></h3>
+              <h5 class="widget-user-desc"><?php echo $rx['telephone'] ?></h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked">
+                <li><span class="pull-right"><a href="cdownliners.php?pid=<?php echo $_GET['cid'] ;?>" class="btn btn-primary"><b>VIEW DIRECT DOWNLINERS</b></a></span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+</div>
+
+
+      <div class="row">
+
+
+ <div class="col-md-12">
+          <!-- row -->
+      <div class="row">
+        <div class="col-md-12">
+          <!-- The time line -->
+          <ul class="timeline">
+            <!-- timeline time label -->
+            <li class="time-label">
+                  <span class="bg-red">
+                     <?php echo $rz['firstname'].' '.$rz['lastname']; ?>
+                  </span>
+            </li>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-user bg-blue"></i>
+
+              <div class="timeline-item">
+
+
+                <h3 class="timeline-header"><a href="#"><?php echo strtoupper($rz['firstname'].' '.$rz['lastname']); ?></a> is the direct upliner of <a href="#"><?php echo strtoupper($rx['firstname'].' '.$rx['lastname']); ?></a></h3>
+
+                <div class="timeline-body">
+                  <b><span class="btn btn-primary btn-xs">BANK NAME:</span> <a href=""><?php echo strtoupper($rx['bank']); ?></a><br />
+                  <span class="btn btn-primary btn-xs">BANK NUMBER:</span> <a href=""><?php echo strtoupper($rx['bankno']); ?></a></b>
+                </div>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-user bg-aqua"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                <h3 class="timeline-header no-border"><span class="btn btn-primary btn-xs">Phone Number:</span><a href="#"><?php echo strtoupper($rx['telephone']); ?></a></h3>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            
+            <!-- timeline time label -->
+            <li class="time-label">
+                  <span class="bg-green">
+                    <?php echo strtoupper($rx['firstname'].' '.$rx['lastname']); ?>
+                  </span>
+            </li>
+            <!-- /.timeline-label -->
+           
+          </ul>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+
+</div>
+     
+    </section>
+    <!-- /.content -->
+  </div>
+  <?php
+include("footer.php");
+?>
